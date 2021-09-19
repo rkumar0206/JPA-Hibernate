@@ -8,6 +8,8 @@ public class JpaHibernateApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JpaHibernateApplication.class, args);
+	
+		// testing git
 	}
 
 }
