@@ -20,40 +20,38 @@ class CourseRepositoryTest {
 
 	@Autowired
 	CourseRepository repository;
-	
+
 	@Test
 	void findById_basics() {
 
 		Course course = repository.findById(10002L);
 		assertEquals("Spring in 50 steps", course.getName());
 	}
-	
-	
+
 	@Test
-	@DirtiesContext  // after the test is run it will reset the data
+	@DirtiesContext // after the test is run it will reset the data
 	void deleteById_basics() {
-		
+
 		repository.deleteById(10002L);
 		assertNull(repository.findById(10002L));
 	}
-	
-	
+
 	@Test
-	@DirtiesContext  // after the test is run it will reset the data
+	@DirtiesContext // after the test is run it will reset the data i.e. rolls back the database
 	void save_basics() {
-		
-		// get a course 
+
+		// get a course
 		Course course = repository.findById(10001L);
 		assertEquals("JPA in 50 steps", course.getName());
-		
-		// update details 
+
+		// update details
 		course.setName("JPA in 50 steps - updated");
 		repository.save(course);
-		
+
 		// check the value
 		Course course1 = repository.findById(10001L);
 		assertEquals("JPA in 50 steps - updated", course1.getName());
-		
+
 	}
 
 }

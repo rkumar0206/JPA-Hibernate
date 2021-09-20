@@ -24,28 +24,27 @@ public class CourseRepository {
 
 	// insert or update
 	public Course save(Course course) {
-		
+
 		if (course.getId() == null) {
-			
+
 			// insert
-			
+
 			em.persist(course);
-			
-		}else {
-			
+
+		} else {
+
 			// update
-			
+
 			em.merge(course);
 		}
-		
+
 		return course;
 	}
-	
-	
+
 	public void deleteById(Long id) {
-		
+
 		Course course = findById(id);
-		
+
 		em.remove(course);
 	}
 
