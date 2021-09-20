@@ -53,5 +53,13 @@ class CourseRepositoryTest {
 		assertEquals("JPA in 50 steps - updated", course1.getName());
 
 	}
+	
+	
+	@Test
+	@DirtiesContext // after the test is run it will reset the data i.e. rolls back the database
+	void playWithEntityManager() {
+	
+		repository.playWithEntityManager();
+	}
 
 }

@@ -33,7 +33,7 @@ public class JpaHibernateApplication implements CommandLineRunner{
 		
 		repository.save(new Course("Microservices"));
 		
-		
+		repository.playWithEntityManager();
 	}
 
 }
