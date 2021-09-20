@@ -55,29 +55,36 @@ public class CourseRepository {
 
 		Course course1 = new Course("Web services in 100 steps");
 		em.persist(course1);
-
+		Course course2 = new Course("Angular js in 100 steps");
+		em.persist(course2);
+		
+		// this method just sent out the changes until now out of the database, we
+		// can call this method many times
+		em.flush();
+		
 		// here we don't need to em.merge() as enitity manager keeps track of
 		// what is happening in the transaction and whenever something changes
 		// it updates it in database
 		course1.setName("Web services in 100 steps - Updated");
-		// this method just sent out the changes until now out of the database, we
-		// can call this method many times
-		em.flush();
-
-		Course course2 = new Course("Angular js in 100 steps");
-		em.persist(course2);
-		em.flush();
-
+		
+		
 		// using this method the course2 is no longer tracked by the entity manager
-		em.detach(course2);
+		//em.detach(course2);
 
 		// this method clear whatever there is in entity manager
 		//em.clear();
 		
 		// this will not be executed as the we have called the detach method above
 		course2.setName("Angular js in 100 steps - Updated");
+		
+		// the contents of the course 1 is refreshed and we get the course 1 value
+		// which is inserted in the database. calling this method will not update the contents
+		// of the course1
+		em.refresh(course1);
+		
+		
 		em.flush();
-
+		
 	}
 
 }
