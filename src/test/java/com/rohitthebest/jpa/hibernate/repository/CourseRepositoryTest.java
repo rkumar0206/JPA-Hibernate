@@ -38,5 +38,22 @@ class CourseRepositoryTest {
 	}
 	
 	
+	@Test
+	@DirtiesContext  // after the test is run it will reset the data
+	void save_basics() {
+		
+		// get a course 
+		Course course = repository.findById(10001L);
+		assertEquals("JPA in 50 steps", course.getName());
+		
+		// update details 
+		course.setName("JPA in 50 steps - updated");
+		repository.save(course);
+		
+		// check the value
+		Course course1 = repository.findById(10001L);
+		assertEquals("JPA in 50 steps - updated", course1.getName());
+		
+	}
 
 }
