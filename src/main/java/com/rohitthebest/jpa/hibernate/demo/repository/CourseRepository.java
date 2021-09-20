@@ -53,13 +53,31 @@ public class CourseRepository {
 
 	public void playWithEntityManager() {
 
-		Course course = new Course("Web services in 100 steps");
-		em.persist(course);
+		Course course1 = new Course("Web services in 100 steps");
+		em.persist(course1);
 
-		// here we don't need to em.merge as Transactional annotation keeps track of
+		// here we don't need to em.merge() as enitity manager keeps track of
 		// what is happening in the transaction and whenever something changes
 		// it updates it in database
-		course.setName("Web services in 100 steps - Updated");
+		course1.setName("Web services in 100 steps - Updated");
+		// this method just sent out the changes until now out of the database, we
+		// can call this method many times
+		em.flush();
+
+		Course course2 = new Course("Angular js in 100 steps");
+		em.persist(course2);
+		em.flush();
+
+		// using this method the course2 is no longer tracked by the entity manager
+		em.detach(course2);
+
+		// this method clear whatever there is in entity manager
+		//em.clear();
+		
+		// this will not be executed as the we have called the detach method above
+		course2.setName("Angular js in 100 steps - Updated");
+		em.flush();
+
 	}
 
 }
